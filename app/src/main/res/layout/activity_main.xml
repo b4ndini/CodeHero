@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".MainActivity">
+    tools:context=".view.activity.MainActivity">
 
 
     <TextView
@@ -36,7 +36,7 @@
 
 
     <TextView
-        android:id="@+id/tvHeroName"
+        android:id="@+id/tvCharacterNameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -58,7 +58,7 @@
         android:layout_marginEnd="30dp"
         app:boxStrokeColor="#A5A5A5"
 
-        app:layout_constraintTop_toBottomOf="@id/tvHeroName">
+        app:layout_constraintTop_toBottomOf="@id/tvCharacterNameLabel">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSearch"
