@@ -2,24 +2,28 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnNumberPage"
         tools:text="1"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:fontFamily="@font/roboto_regular"
         android:textColor="#D42026"
         android:textAlignment="center"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/circle"
+        android:background="@drawable/button_selector"
 
         />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

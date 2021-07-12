@@ -2,14 +2,15 @@ package com.lfelipe.codehero.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.lfelipe.codehero.R
 import com.lfelipe.codehero.databinding.ActivityMainBinding
-import com.lfelipe.codehero.model.Characters
 import com.lfelipe.codehero.model.Result
 import com.lfelipe.codehero.view.adapter.MainAdapter
+import com.lfelipe.codehero.view.adapter.PageAdapter
 import com.lfelipe.codehero.viewModel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.getCharacters(0)
+        searchHero()
         observes()
 
 
@@ -35,22 +37,48 @@ class MainActivity : AppCompatActivity() {
 
     private fun observes() {
         viewModel.characterLiveData.observe(this,{
-            setupRecyclerView(it.data.results)
 
+            viewModel.getPaging(it.data.total/4)
+
+            binding.rvHeroList.apply{
+                layoutManager = LinearLayoutManager(this@MainActivity)
+                adapter = MainAdapter(it.data.results)
+            }
         })
 
         viewModel.errorMsgLiveData.observe(this,{
             Toast.makeText(this,"ERRO AO CARREGAR: $it", Toast.LENGTH_LONG).show()
+        })
 
+        viewModel.listLiveData.observe(this,{
+            binding.rvPaging.apply {
+                layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+                adapter = PageAdapter(it)
+            }
+        })
+
+    }
+
+
+    private fun searchHero() {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(name: CharSequence?, start: Int, before: Int, count: Int) {
+                if (name != null) {
+                    if(name.isNotEmpty())
+                        viewModel.searchHeroByName(name)
+
+                }
+
+            }
         })
     }
 
-    fun setupRecyclerView(hero: List<Result>) {
-        binding.rvHeroList.apply{
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = MainAdapter(hero)
 
-        }
-    }
 
 }

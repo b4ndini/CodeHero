@@ -9,8 +9,15 @@ interface MarvelApi {
 
     @GET("characters")
     suspend fun characters(
-        @Query("offset") off : Int,
+        @Query("offset") off : Int = 0,
         @Query("limit") limit : Int = 4
+    ): Response<Characters>
+
+    @GET("characters")
+    suspend fun charactersByName(
+        @Query("offset") off : Int = 0,
+        @Query("limit") limit : Int = 4,
+        @Query("nameStartsWith") name: String
     ): Response<Characters>
 
 }
