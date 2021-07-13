@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.getCharacters(0)
+        viewModel.getCharacters(0, null)
         searchHero()
         observes()
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.listLiveData.observe(this,{
             binding.rvPaging.apply {
                 layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
-                adapter = PageAdapter(it)
+                adapter = PageAdapter(it, binding.etSearch.text.toString())
             }
         })
 
@@ -71,9 +71,13 @@ class MainActivity : AppCompatActivity() {
             override fun onTextChanged(name: CharSequence?, start: Int, before: Int, count: Int) {
                 if (name != null) {
                     if(name.isNotEmpty())
-                        viewModel.searchHeroByName(name)
+                        viewModel.getCharacters(0, name.toString())
 
                 }
+                if(name.isNullOrBlank() or name.isNullOrEmpty()) {
+                    viewModel.getCharacters(0, null)
+                }
+
 
             }
         })

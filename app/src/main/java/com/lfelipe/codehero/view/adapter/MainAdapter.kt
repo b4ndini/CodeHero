@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lfelipe.codehero.R
+import com.lfelipe.codehero.util.Constants.Api.IMAGE
 
 class MainAdapter (
     private val characters: List<Result>
@@ -34,7 +35,7 @@ class MainAdapter (
 
         findViewById<TextView>(R.id.tvHeroName).text = character.name
 
-            val imagem : String = character.thumbnail.path + "/portrait_medium." + character.thumbnail.extension
+            val imagem = character.thumbnail.path + IMAGE + character.thumbnail.extension
             val imageView = findViewById<ImageView>(R.id.ivHero)
             Glide.with(itemView.context).load(imagem).into(imageView)
 

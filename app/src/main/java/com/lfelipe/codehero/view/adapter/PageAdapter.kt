@@ -13,7 +13,8 @@ import com.lfelipe.codehero.viewModel.MainViewModel
 
 
 class PageAdapter (
-    private val list: MutableList<Int>
+    private val list: MutableList<Int>,
+    private val heroName: String?
 ) : RecyclerView.Adapter<PageAdapter.ViewHolder>() {
 
 
@@ -21,7 +22,7 @@ class PageAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PageAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.page_number, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, heroName)
     }
 
     override fun onBindViewHolder(holder: PageAdapter.ViewHolder, position: Int) {
@@ -32,11 +33,11 @@ class PageAdapter (
         return list.size
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, heroName: String?) : RecyclerView.ViewHolder(itemView) {
 
         private lateinit var viewModel: MainViewModel
 
-
+        private var characterName = heroName
 
         fun bind(pageNumber: Int) = with(itemView) {
 
@@ -46,8 +47,14 @@ class PageAdapter (
 
                 text = pageNumber.toString()
 
+                if(characterName.isNullOrEmpty() or characterName.isNullOrBlank()) {
+                    characterName = null
+                }
+
+
                 setOnClickListener {
-                    viewModel.getCharacters((pageNumber-1)*4)
+
+                    viewModel.getCharacters((pageNumber-1)*4, characterName)
                 }
 
 

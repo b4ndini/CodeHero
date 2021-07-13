@@ -15,9 +15,9 @@ class MainViewModel : ViewModel() {
     val characterLiveData: MutableLiveData<Characters> = MutableLiveData()
     val errorMsgLiveData: MutableLiveData<String> = MutableLiveData()
 
-    fun getCharacters(off: Int){
+    fun getCharacters(off: Int, name: String?){
         viewModelScope.launch {
-            when(val response = repository.getCharacters(off)){
+            when(val response = repository.getCharacters(off, name)){
                 is ResponseApi.Success -> {
                     characterLiveData.postValue(response.data as? Characters)
                 }

@@ -6,9 +6,9 @@ import java.lang.Exception
 
 class MainRepository {
 
-    suspend fun getCharacters(offset: Int): ResponseApi {
+    suspend fun getCharacters(offset: Int, name: String?): ResponseApi {
         return try{
-            val response = ApiService.marvelApi.characters(offset)
+            val response = ApiService.marvelApi.characters(off = offset, name = name)
 
             if(response.isSuccessful){
                 ResponseApi.Success(response.body())
