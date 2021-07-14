@@ -14,11 +14,4 @@ interface MarvelApi {
         @Query("nameStartsWith") name: String?
     ): Response<Characters>
 
-    @GET("characters")
-    suspend fun charactersByName(
-        @Query("offset") off : Int = 0,
-        @Query("limit") limit : Int = 4,
-        @Query("nameStartsWith") name: String
-    ): Response<Characters>
-
 }

@@ -30,18 +30,5 @@ class MainRepository {
 
     }
 
-    suspend fun getHeroByName(name: String): ResponseApi {
-        return try{
-            val response = ApiService.marvelApi.charactersByName(name = name)
 
-            if(response.isSuccessful){
-                ResponseApi.Success(response.body())
-            }
-            else{
-                ResponseApi.Error("Erro")
-            }
-        }catch (exception: Exception){
-            ResponseApi.Error("ERRO CARREGAR")
-        }
-    }
 }

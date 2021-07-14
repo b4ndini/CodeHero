@@ -36,20 +36,6 @@ class MainViewModel : ViewModel() {
             }
         }
 
-    fun searchHeroByName(name: CharSequence) {
-
-        viewModelScope.launch {
-            when(val response = repository.getHeroByName(name.toString())){
-                is ResponseApi.Success -> {
-                    characterLiveData.postValue(response.data as? Characters)
-                }
-                is ResponseApi.Error -> {
-                    errorMsgLiveData.postValue(response.msg)
-                }
-            }
-        }
-
-    }
 
 
 }
