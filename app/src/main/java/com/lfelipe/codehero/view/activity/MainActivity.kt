@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lfelipe.codehero.databinding.ActivityMainBinding
 import com.lfelipe.codehero.model.Result
+import com.lfelipe.codehero.util.Constants.Api.HERO_LIMIT
+import com.lfelipe.codehero.util.roundToNextInt
 import com.lfelipe.codehero.view.adapter.MainAdapter
 import com.lfelipe.codehero.view.adapter.PageAdapter
 import com.lfelipe.codehero.viewModel.MainViewModel
@@ -38,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     private fun observes() {
         viewModel.characterLiveData.observe(this,{
 
-            viewModel.getPaging(it.data.total/4)
+            viewModel.getPaging((it.data.total.toDouble()/HERO_LIMIT).roundToNextInt())
 
             binding.rvHeroList.apply{
                 layoutManager = LinearLayoutManager(this@MainActivity)

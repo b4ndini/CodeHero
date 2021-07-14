@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.lfelipe.codehero.R
+import com.lfelipe.codehero.util.Constants.Api.HERO_LIMIT
 import com.lfelipe.codehero.view.activity.MainActivity
 import com.lfelipe.codehero.viewModel.MainViewModel
 
@@ -54,7 +54,7 @@ class PageAdapter (
 
                 setOnClickListener {
 
-                    viewModel.getCharacters((pageNumber-1)*4, characterName)
+                    viewModel.getCharacters((pageNumber-1)*HERO_LIMIT.toInt(), characterName)
                 }
 
 
