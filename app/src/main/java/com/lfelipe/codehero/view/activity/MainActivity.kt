@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                         putExtra("NAME", characters.data.results[pos].name)
                         putExtra("DESCRIPTION", characters.data.results[pos].description)
                         putExtra("IMAGE", characters.data.results[pos].thumbnail.path)
+                        putExtra("LINK", characters.data.results[pos].urls[0].url)
                     }
                     startActivity(intent)
                 }

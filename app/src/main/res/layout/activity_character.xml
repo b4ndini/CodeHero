@@ -10,6 +10,7 @@
         android:id="@+id/ivHeroImage"
         android:layout_width="match_parent"
         android:layout_height="261dp"
+        android:contentDescription="@string/hero_picture"
         android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -55,5 +56,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/ivShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/main_color"
+        android:src="@drawable/baseline_share_24"
+        app:layout_constraintBottom_toTopOf="@id/ivFooter"
+        app:layout_constraintEnd_toEndOf="@id/tvDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
