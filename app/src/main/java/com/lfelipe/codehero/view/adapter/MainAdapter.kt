@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.lfelipe.codehero.model.Result
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.lfelipe.codehero.R
 import com.lfelipe.codehero.util.Constants.Api.IMAGE
 
 class MainAdapter (
-    private val characters: List<Result>
+    private val characters: List<Result>,
+    private val onItemClicked: (Int) -> Unit
 ) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapter.ViewHolder {
@@ -22,7 +24,7 @@ class MainAdapter (
     }
 
     override fun onBindViewHolder(holder: MainAdapter.ViewHolder, position: Int) {
-        holder.bind(characters[position])
+        holder.bind(characters[position], onItemClicked)
     }
 
     override fun getItemCount(): Int {
@@ -31,7 +33,7 @@ class MainAdapter (
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(character: Result) = with(itemView) {
+        fun bind(character: Result, onItemClicked: (Int) -> Unit) = with(itemView) {
 
         findViewById<TextView>(R.id.tvHeroName).text = character.name
 
@@ -39,6 +41,9 @@ class MainAdapter (
             val imageView = findViewById<ImageView>(R.id.ivHero)
             Glide.with(itemView.context).load(imagem).into(imageView)
 
+            findViewById<ConstraintLayout>(R.id.heroContainer).setOnClickListener{
+                onItemClicked(this@ViewHolder.adapterPosition)
+            }
 
 
 

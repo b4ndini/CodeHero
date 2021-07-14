@@ -5,4 +5,5 @@
     <string name="characters_name">Nome</string>
     <string name="search_title">Nome do Personagem</string>
     <string name="hero_picture">Hero picture</string>
+    <string name="null_description">Nenhuma descrição foi encontrada.</string>
 </resources>

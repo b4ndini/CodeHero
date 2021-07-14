@@ -1,5 +1,6 @@
 package com.lfelipe.codehero.view.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -21,22 +22,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.getCharacters(0, null)
         addItemDecoration()
         searchHero()
         observes()
-
-
-
     }
 
     private fun addItemDecoration() {
@@ -46,23 +41,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observes() {
-        viewModel.characterLiveData.observe(this,{
+        viewModel.characterLiveData.observe(this, { characters ->
 
-            viewModel.getPaging((it.data.total.toDouble()/HERO_LIMIT).roundToNextInt())
+            viewModel.getPaging((characters.data.total.toDouble() / HERO_LIMIT).roundToNextInt())
 
-            binding.rvHeroList.apply{
+            binding.rvHeroList.apply {
                 layoutManager = LinearLayoutManager(this@MainActivity)
-                adapter = MainAdapter(it.data.results)
+                adapter = MainAdapter(characters.data.results) { pos ->
+                    val intent = Intent(this@MainActivity, CharacterActivity::class.java).apply {
+                        putExtra("NAME", characters.data.results[pos].name)
+                        putExtra("DESCRIPTION", characters.data.results[pos].description)
+                        putExtra("IMAGE", characters.data.results[pos].thumbnail.path)
+                    }
+                    startActivity(intent)
+                }
+
+
             }
         })
 
-        viewModel.errorMsgLiveData.observe(this,{
-            Toast.makeText(this,"ERRO AO CARREGAR: $it", Toast.LENGTH_LONG).show()
+        viewModel.errorMsgLiveData.observe(this, {
+            Toast.makeText(this, "ERRO AO CARREGAR: $it", Toast.LENGTH_LONG).show()
         })
 
-        viewModel.listLiveData.observe(this,{
+        viewModel.listLiveData.observe(this, {
             binding.rvPaging.apply {
-                layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+                layoutManager =
+                    LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
                 adapter = PageAdapter(it, binding.etSearch.text.toString())
             }
         })
@@ -80,11 +85,11 @@ class MainActivity : AppCompatActivity() {
 
             override fun onTextChanged(name: CharSequence?, start: Int, before: Int, count: Int) {
                 if (name != null) {
-                    if(name.isNotEmpty())
+                    if (name.isNotEmpty())
                         viewModel.getCharacters(0, name.toString())
 
                 }
-                if(name.isNullOrBlank() or name.isNullOrEmpty()) {
+                if (name.isNullOrBlank() or name.isNullOrEmpty()) {
                     viewModel.getCharacters(0, null)
                 }
 
@@ -92,7 +97,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
 
 
 }
