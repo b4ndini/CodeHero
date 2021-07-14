@@ -6,9 +6,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.lfelipe.codehero.R
 import com.lfelipe.codehero.databinding.ActivityMainBinding
-import com.lfelipe.codehero.model.Result
 import com.lfelipe.codehero.util.Constants.Api.HERO_LIMIT
 import com.lfelipe.codehero.util.roundToNextInt
 import com.lfelipe.codehero.view.adapter.MainAdapter
@@ -30,11 +31,18 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         viewModel.getCharacters(0, null)
+        addItemDecoration()
         searchHero()
         observes()
 
 
 
+    }
+
+    private fun addItemDecoration() {
+        val divider = DividerItemDecoration(this@MainActivity, LinearLayoutManager.VERTICAL)
+        divider.setDrawable(resources.getDrawable(R.drawable.divider_layer, null))
+        binding.rvHeroList.addItemDecoration(divider)
     }
 
     private fun observes() {
