@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Code Hero</string>
     <string name="main_title">Busca Marvel</string>
     <string name="subtitle">Teste front-end</string>
     <string name="characters_name">Nome</string>
